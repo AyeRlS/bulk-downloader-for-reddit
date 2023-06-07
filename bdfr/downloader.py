@@ -93,6 +93,8 @@ class RedditDownloader(RedditConnector):
 
         logger.debug(f"Attempting to download submission {submission.id}")
         try:
+            if submission.url.endswith(".gifv"):
+                submission.url = submission.url.replace(".gifv", ".mp4")
             downloader_class = DownloadFactory.pull_lever(submission.url)
             downloader = downloader_class(submission)
             logger.debug(f"Using {downloader_class.__name__} with url {submission.url}")
